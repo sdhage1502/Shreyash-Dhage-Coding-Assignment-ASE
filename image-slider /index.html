@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex justify-center items-center h-screen">
+<div class="bg-white shadow-lg rounded-lg p-6 w-96 flex flex-col items-center">
+    <h2 class="text-2xl font-bold mb-4 text-center">Image Slider</h2>
+   
+    <div class="relative w-full h-64 overflow-hidden">
+        <img id="slider" class="w-full h-full object-cover rounded-lg"   src="" alt="Upload your images below">
+    </div>
+    <div class="flex justify-between w-full mt-4">
+        <button onclick="prevImage()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Previous</button>
+        <button onclick="removeImage()" class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-600">Remove  Image</button>
+
+        <button onclick="nextImage()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Next</button>
+    </div>
+    <input type="file" id="imageInput" multiple accept="image/*" class="mt-4">
+</div>
+
+<script>
+    let images = [];
+    let currentIndex = 0;
+    const slider = document.getElementById("slider");
+    const imageInput = document.getElementById("imageInput");
+
+    imageInput.addEventListener("change", function(event) {
+        const files = Array.from(event.target.files);
+        files.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                images.push(e.target.result);
+                if (images.length === 1) {
+                    currentIndex = 0;
+                    updateImage();
+                }
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+
+    function updateImage() {
+        if (images.length > 0) {
+            slider.src = images[currentIndex];
+        } else {
+            slider.src = "";
+            slider.alt = "Upload your images below";
+        }
+    }
+
+    function prevImage() {
+        if (images.length > 0) {
+            currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
+            updateImage();
+        }
+    }
+
+    function nextImage() {
+        if (images.length > 0) {
+            currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
+            updateImage();
+        }
+    }
+
+    function removeImage() {
+        if (images.length > 0) {
+            images.splice(currentIndex, 1);
+            if (currentIndex >= images.length) {
+                currentIndex = images.length - 1;
+            }
+            updateImage();
+        }
+    }
+</script>
+</body>
+</html>
