@@ -50,7 +50,7 @@
 
 
         <div class="mt-6 space-y-2">
-            <button onclick="openlink()" class="w-full py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition">
+            <button onclick="https://github.com/sdhage1502/" class="w-full py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition">
                 Follow Me
             </button>
             <button onclick="toggleTheme()" class="w-full py-2 bg-gray-300 dark:bg-gray-700 dark:text-white text-black font-semibold rounded-lg shadow-md hover:bg-gray-400 dark:hover:bg-gray-600 transition">
@@ -77,9 +77,7 @@
             localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
         }
 
-        function openlink() {
-            window.open("https://www.linkedin.com/shreyashdhage");
-        }
+    
        //load theme
         window.onload = function() {
             if (localStorage.getItem('theme') === 'dark') {
